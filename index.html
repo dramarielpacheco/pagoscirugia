@@ -1,4 +1,4 @@
-      <!DOCTYPE html>
+     <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -45,7 +45,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .sec-title{font-size:13px;font-weight:700;color:#374151}
 .checks-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,0,0,0.06)}
 .check-item{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:#475569}
-.check-item input[type=checkbox]{width:16px;height:16px;accent-color:#1D9E75;cursor:pointer}
+.check-item input[type=checkbox]{width:18px;height:18px;accent-color:#1D9E75;cursor:pointer}
 .badge{font-size:11px;padding:3px 9px;border-radius:99px;font-weight:600}
 .b-pending{background:#FEF3C7;color:#92400e;border:1px solid #FDE68A}
 .b-paid{background:#D1FAE5;color:#065f46;border:1px solid #6EE7B7}
@@ -92,20 +92,34 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .dr-info{font-size:11px;color:#94a3b8}
 .dr-g{font-size:13px;color:#059669;font-weight:600}
 .dr-r{font-size:13px;color:#ef4444;font-weight:500}
-.rec{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:8px}
-.rec-top{display:flex;justify-content:space-between;align-items:flex-start}
-.rec-name{font-size:14px;font-weight:700;color:#1e293b}
-.rec-date{font-size:12px;color:#64748b}
-.rec-type{font-size:11px;padding:2px 8px;border-radius:99px;font-weight:600}
-.rt-particular{background:#D1FAE5;color:#065f46}
-.rt-aseguradora{background:#DBEAFE;color:#1e40af}
-.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
-.tag{font-size:11px;padding:3px 8px;border-radius:99px}
-.tag-anest{background:#EDE9FE;color:#5b21b6;border:1px solid #DDD6FE}
-.tag-ayud{background:#FFEDD5;color:#9a3412;border:1px solid #FED7AA}
 .empty{text-align:center;padding:32px;color:#94a3b8;font-size:13px}
 .url-input{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;background:#fff;color:#1e293b;outline:none;margin-top:8px}
 .url-input:focus{border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,.1)}
+.reg-card{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,0.08);border:1px solid #e2e8f0}
+.reg-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.reg-name{font-size:16px;font-weight:700;color:#1e293b}
+.reg-sub{font-size:12px;color:#64748b;margin-top:2px}
+.reg-monto{font-size:18px;font-weight:700;color:#1e293b;text-align:right}
+.reg-metodo{font-size:11px;padding:3px 10px;border-radius:99px;font-weight:600;margin-top:4px;display:inline-block}
+.met-efectivo{background:#D1FAE5;color:#065f46}
+.met-terminal{background:#DBEAFE;color:#1e40af}
+.met-transferencia{background:#EDE9FE;color:#5b21b6}
+.reg-checks{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;padding-top:10px;border-top:1px solid #f1f5f9}
+.pill-check{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:99px;border:1.5px solid #e2e8f0;background:#f8fafc;cursor:pointer;transition:all .2s;user-select:none;font-size:12px;font-weight:600;color:#64748b}
+.pill-check.done{background:#D1FAE5;border-color:#6EE7B7;color:#065f46}
+.pill-check.done-orange{background:#FFEDD5;border-color:#FED7AA;color:#9a3412}
+.pill-check.done-purple{background:#EDE9FE;border-color:#DDD6FE;color:#5b21b6}
+.pill-circle{width:18px;height:18px;border-radius:50%;border:2px solid #cbd5e1;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;background:#fff;font-size:11px}
+.pill-check.done .pill-circle{background:#10b981;border-color:#10b981;color:#fff}
+.pill-check.done-orange .pill-circle{background:#f97316;border-color:#f97316;color:#fff}
+.pill-check.done-purple .pill-circle{background:#8b5cf6;border-color:#8b5cf6;color:#fff}
+.reg-save-btn{margin-top:10px;width:100%;padding:9px;background:linear-gradient(135deg,#0F6E56,#1D9E75);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity .15s}
+.reg-save-btn:hover{opacity:.9}
+.reg-save-btn:disabled{opacity:.4}
+.reg-msg{font-size:12px;text-align:center;margin-top:6px;min-height:16px}
+.reg-msg.ok{color:#065f46}
+.reg-msg.err{color:#991b1b}
+.reg-msg.info{color:#1e40af}
 </style>
 </head>
 <body>
@@ -120,8 +134,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <div class="tabs">
   <div class="tab active" data-tab="registro" onclick="switchTab(this)">➕ Registro</div>
+  <div class="tab" data-tab="historial" onclick="switchTab(this)">✏️ Registros</div>
   <div class="tab" data-tab="reporte" onclick="switchTab(this)">📊 Reporte</div>
-  <div class="tab" data-tab="historial" onclick="switchTab(this)">📋 Historial</div>
   <div class="tab" data-tab="config" onclick="switchTab(this)">⚙️ Config</div>
 </div>
 
@@ -149,13 +163,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
     <div id="bloque-honorarios">
       <div class="row row2">
-        <div class="fg"><label>Pago total de la cirugía ($)</label><input id="f-total" type="number" placeholder="0.00" oninput="calcHonorarios()"/></div>
+        <div class="fg"><label>Pago total ($)</label><input id="f-total" type="number" placeholder="0.00" oninput="calcHonorarios()"/></div>
         <div class="fg"><label>Forma de pago</label>
           <select id="f-pago"><option value="">Seleccionar...</option><option>Terminal</option><option>Transferencia</option><option>Efectivo</option></select>
         </div>
       </div>
       <div class="fg" style="margin-bottom:10px">
-        <label>Mis honorarios (calculado automáticamente)</label>
+        <label>Mis honorarios (automático)</label>
         <div id="f-honorarios-display" style="padding:9px 10px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;font-size:15px;font-weight:700;color:#065f46">$0.00</div>
         <input type="hidden" id="f-monto"/>
       </div>
@@ -200,6 +214,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div id="save-msg"></div>
 </div>
 
+<div id="pane-historial" style="display:none">
+  <div class="filter-row">
+    <select id="hist-filtro-mes" onchange="loadHistory()"><option value="">Todos los meses</option></select>
+    <select id="hist-filtro-tipo" onchange="loadHistory()">
+      <option value="">Todo</option>
+      <option value="Particular">Particular</option>
+      <option value="Aseguradora">Aseguradora</option>
+    </select>
+  </div>
+  <div id="hist-list"><div class="empty">Cargando...</div></div>
+  <button class="btn-sec" style="margin-top:8px" onclick="loadHistory()">↻ Actualizar</button>
+  <div id="hist-msg"></div>
+</div>
+
 <div id="pane-reporte" style="display:none">
   <div class="filter-row">
     <select id="filtro-mes" onchange="loadReport()"><option value="">Todos los meses</option></select>
@@ -214,11 +242,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="mc mc-green"><div class="mc-label">Mis honorarios netos</div><div class="mc-val" id="r-neto">$0</div></div>
     <div class="mc mc-blue"><div class="mc-label">Cirugías registradas</div><div class="mc-val" id="r-total">0</div></div>
   </div>
-  <div class="section-title">💳 Desglose por método de pago</div>
+  <div class="section-title">💳 Desglose por método (entró / salió)</div>
   <div class="pago-breakdown">
-    <div class="pb-row"><span class="pb-label">💳 Terminal</span><span class="pb-val" id="pb-terminal">$0</span></div>
-    <div class="pb-row"><span class="pb-label">🏦 Transferencia</span><span class="pb-val" id="pb-transferencia">$0</span></div>
-    <div class="pb-row"><span class="pb-label">💵 Efectivo</span><span class="pb-val" id="pb-efectivo">$0</span></div>
+    <div class="pb-row"><span class="pb-label">💳 Terminal</span><span class="pb-val" id="pb-terminal">$0 / -$0</span></div>
+    <div class="pb-row"><span class="pb-label">🏦 Transferencia</span><span class="pb-val" id="pb-transferencia">$0 / -$0</span></div>
+    <div class="pb-row"><span class="pb-label">💵 Efectivo</span><span class="pb-val" id="pb-efectivo">$0 / -$0</span></div>
   </div>
   <div class="section-title">🧾 Facturación al paciente</div>
   <div class="metrics">
@@ -231,20 +259,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="card" style="padding:0 16px"><div id="rep-pendientes"><div class="empty">Sin pendientes ✓</div></div></div>
   <button class="btn-sec" style="margin-top:8px" onclick="loadReport()">↻ Actualizar reporte</button>
   <div id="rep-msg"></div>
-</div>
-
-<div id="pane-historial" style="display:none">
-  <div class="filter-row">
-    <select id="hist-filtro-mes" onchange="loadHistory()"><option value="">Todos los meses</option></select>
-    <select id="hist-filtro-tipo" onchange="loadHistory()">
-      <option value="">Todo</option>
-      <option value="Particular">Particular</option>
-      <option value="Aseguradora">Aseguradora</option>
-    </select>
-  </div>
-  <div id="hist-list"><div class="empty">Presiona cargar</div></div>
-  <button class="btn-sec" style="margin-top:8px" onclick="loadHistory()">↻ Cargar historial</button>
-  <div id="hist-msg"></div>
 </div>
 
 <div id="pane-config" style="display:none">
@@ -266,6 +280,7 @@ const MAX_AYUD=2;
 let atToken=localStorage.getItem('atToken')||'';
 let atBase=localStorage.getItem('atBase')||'';
 let atTable=localStorage.getItem('atTable')||'Pagos_Cirugia';
+let histRecords=[];
 
 const $=id=>document.getElementById(id);
 const v=id=>($( id)||{}).value||'';
@@ -363,7 +378,16 @@ function updateConnStatus(on){
 async function atPost(fields){
   const res=await fetch(`https://api.airtable.com/v0/${atBase}/${encodeURIComponent(atTable)}`,{
     method:'POST',headers:{'Authorization':'Bearer '+atToken,'Content-Type':'application/json'},
-    body:JSON.stringify({fields})
+    body:JSON.stringify({fields,typecast:true})
+  });
+  if(!res.ok)throw new Error(await res.text());
+  return res.json();
+}
+
+async function atPatch(recordId,fields){
+  const res=await fetch(`https://api.airtable.com/v0/${atBase}/${encodeURIComponent(atTable)}/${recordId}`,{
+    method:'PATCH',headers:{'Authorization':'Bearer '+atToken,'Content-Type':'application/json'},
+    body:JSON.stringify({fields,typecast:true})
   });
   if(!res.ok)throw new Error(await res.text());
   return res.json();
@@ -376,7 +400,7 @@ async function atGet(filterMes){
   do{
     const r=await fetch(url+(offset?'&offset='+offset:''),{headers:{'Authorization':'Bearer '+atToken}});
     const d=await r.json();
-    if(d.records)all.push(...d.records.map(r=>r.fields));
+    if(d.records)all.push(...d.records.map(r=>({...r.fields,_id:r.id})));
     offset=d.offset||'';
   }while(offset);
   return all;
@@ -405,8 +429,8 @@ async function guardar(){
   const pac=v('f-pac'),fecha=v('f-fecha');
   if(!pac||!fecha){msg('save-msg','Paciente y fecha son obligatorios','err');return;}
   const fields={
-    Fecha:fecha, Paciente:pac, Tipo:tipo==='particular'?'Particular':'Aseguradora',
-    Tipo_Cirugia:v('f-tipo'), Hospital:v('f-hospital'),
+    Fecha:fecha,Paciente:pac,Tipo:tipo==='particular'?'Particular':'Aseguradora',
+    Tipo_Cirugia:v('f-tipo'),Hospital:v('f-hospital'),
     Pago_Total:tipo==='particular'?parseFloat(v('f-total'))||0:0,
     Monto_Cirujano:tipo==='particular'?parseFloat(v('f-monto'))||0:0,
     Pago_Cirujano:tipo==='particular'?v('f-pago'):'',
@@ -418,12 +442,12 @@ async function guardar(){
     Anest_Fecha_Pago:tipo==='particular'?v('a-fecha-pago'):'',
     Anest_Pagado:tipo==='particular'?ch('a-pagado'):false,
     Anest_Factura:tipo==='particular'?ch('a-factura'):false,
-    Ayud1_Nombre:v('ay0-nom'), Ayud1_Monto:parseFloat(v('ay0-monto'))||0,
-    Ayud1_Pago:v('ay0-pago'), Ayud1_Fecha_Pago:v('ay0-fecha-pago'),
-    Ayud1_Pagado:ch('ay0-pagado'), Ayud1_Factura:ch('ay0-factura'),
-    Ayud2_Nombre:v('ay1-nom'), Ayud2_Monto:parseFloat(v('ay1-monto'))||0,
-    Ayud2_Pago:v('ay1-pago'), Ayud2_Fecha_Pago:v('ay1-fecha-pago'),
-    Ayud2_Pagado:ch('ay1-pagado'), Ayud2_Factura:ch('ay1-factura'),
+    Ayud1_Nombre:v('ay0-nom'),Ayud1_Monto:parseFloat(v('ay0-monto'))||0,
+    Ayud1_Pago:v('ay0-pago'),Ayud1_Fecha_Pago:v('ay0-fecha-pago'),
+    Ayud1_Pagado:ch('ay0-pagado'),Ayud1_Factura:ch('ay0-factura'),
+    Ayud2_Nombre:v('ay1-nom'),Ayud2_Monto:parseFloat(v('ay1-monto'))||0,
+    Ayud2_Pago:v('ay1-pago'),Ayud2_Fecha_Pago:v('ay1-fecha-pago'),
+    Ayud2_Pagado:ch('ay1-pagado'),Ayud2_Factura:ch('ay1-factura'),
   };
   const local=getLocalRecords();local.push(fields);
   localStorage.setItem('records',JSON.stringify(local));
@@ -433,9 +457,7 @@ async function guardar(){
   if(atToken&&atBase){
     try{await atPost(fields);msg('save-msg','✓ Guardado en Airtable','ok');}
     catch(e){msg('save-msg','Error: '+e.message.substring(0,80),'err');}
-  }else{
-    msg('save-msg','✓ Guardado localmente','ok');
-  }
+  }else{msg('save-msg','✓ Guardado localmente','ok');}
   $('btn-save').disabled=false;
   resetForm();
 }
@@ -452,6 +474,101 @@ function resetForm(){
   setTipo('particular');
 }
 
+async function loadHistory(){
+  msg('hist-msg','Cargando...','info');
+  const mesFiltro=v('hist-filtro-mes'),tipoFiltro=v('hist-filtro-tipo');
+  if(atToken&&atBase){
+    try{histRecords=await atGet(mesFiltro);}catch(e){histRecords=getLocalRecords();}
+  }else{histRecords=getLocalRecords();}
+  if(mesFiltro)histRecords=histRecords.filter(r=>r.Fecha&&r.Fecha.startsWith(mesFiltro));
+  if(tipoFiltro)histRecords=histRecords.filter(r=>r.Tipo===tipoFiltro);
+  renderHistory();
+  msg('hist-msg','','ok');
+}
+
+function renderHistory(){
+  const el=$('hist-list');
+  if(!histRecords.length){el.innerHTML='<div class="empty">Sin registros</div>';return;}
+  el.innerHTML=[...histRecords].reverse().map((r,i)=>{
+    const idx=histRecords.length-1-i;
+    const metClass=r.Pago_Cirujano==='Efectivo'?'met-efectivo':r.Pago_Cirujano==='Terminal'?'met-terminal':'met-transferencia';
+    const pills=buildPills(r,idx);
+    return `<div class="reg-card">
+      <div class="reg-top">
+        <div>
+          <div class="reg-name">${r.Paciente||'—'}</div>
+          <div class="reg-sub">${r.Fecha||'—'}${r.Tipo_Cirugia?' · '+r.Tipo_Cirugia:''}${r.Hospital?' · '+r.Hospital:''}</div>
+        </div>
+        <div style="text-align:right">
+          ${r.Tipo==='Particular'?`<div class="reg-monto">${fmt(r.Pago_Total||0)}</div><span class="reg-metodo ${metClass}">${r.Pago_Cirujano||'—'}</span>`:`<span style="font-size:12px;padding:3px 10px;border-radius:99px;background:#DBEAFE;color:#1e40af;font-weight:600">Aseguradora</span>`}
+        </div>
+      </div>
+      <div class="reg-checks">${pills}</div>
+      ${r._id?`<button class="reg-save-btn" id="sbtn-${idx}" onclick="saveEdits(${idx})">💾 Guardar cambios</button><div class="reg-msg" id="rmsg-${idx}"></div>`:''}
+    </div>`;
+  }).join('');
+}
+
+function buildPills(r,idx){
+  const pills=[];
+  if(r.Tipo==='Particular'){
+    pills.push({key:'Cobrado',label:'Cobré honorarios',val:r.Cobrado,color:''});
+    pills.push({key:'Factura_Paciente',label:'Factura paciente',val:r.Factura_Paciente,color:''});
+    if(r.Anest_Nombre){
+      pills.push({key:'Anest_Pagado',label:`Pagué ${r.Anest_Nombre}`,val:r.Anest_Pagado,color:'orange'});
+      pills.push({key:'Anest_Factura',label:`Factura ${r.Anest_Nombre}`,val:r.Anest_Factura,color:'purple'});
+    }
+  }
+  if(r.Ayud1_Nombre){
+    pills.push({key:'Ayud1_Pagado',label:`Pagué ${r.Ayud1_Nombre}`,val:r.Ayud1_Pagado,color:'orange'});
+    pills.push({key:'Ayud1_Factura',label:`Factura ${r.Ayud1_Nombre}`,val:r.Ayud1_Factura,color:'purple'});
+  }
+  if(r.Ayud2_Nombre){
+    pills.push({key:'Ayud2_Pagado',label:`Pagué ${r.Ayud2_Nombre}`,val:r.Ayud2_Pagado,color:'orange'});
+    pills.push({key:'Ayud2_Factura',label:`Factura ${r.Ayud2_Nombre}`,val:r.Ayud2_Factura,color:'purple'});
+  }
+  return pills.map(p=>{
+    const doneClass=p.val?(p.color==='orange'?'done-orange':p.color==='purple'?'done-purple':'done'):'';
+    return `<div class="pill-check ${doneClass}" id="pill-${idx}-${p.key}" onclick="togglePill(${idx},'${p.key}',this)">
+      <div class="pill-circle">${p.val?'✓':''}</div>
+      <span>${p.label}</span>
+    </div>`;
+  }).join('');
+}
+
+function togglePill(idx,key,el){
+  histRecords[idx][key]=!histRecords[idx][key];
+  const val=histRecords[idx][key];
+  let doneClass='done';
+  if(key.includes('Pagado'))doneClass='done-orange';
+  if(key.includes('Factura'))doneClass='done-purple';
+  el.className='pill-check'+(val?' '+doneClass:'');
+  el.querySelector('.pill-circle').textContent=val?'✓':'';
+}
+
+async function saveEdits(idx){
+  const r=histRecords[idx];
+  if(!r._id)return;
+  const btn=$(`sbtn-${idx}`);
+  const msgEl=$(`rmsg-${idx}`);
+  if(btn)btn.disabled=true;
+  if(msgEl){msgEl.className='reg-msg info';msgEl.textContent='Guardando...';}
+  const fields={
+    Cobrado:r.Cobrado||false,Factura_Paciente:r.Factura_Paciente||false,
+    Anest_Pagado:r.Anest_Pagado||false,Anest_Factura:r.Anest_Factura||false,
+    Ayud1_Pagado:r.Ayud1_Pagado||false,Ayud1_Factura:r.Ayud1_Factura||false,
+    Ayud2_Pagado:r.Ayud2_Pagado||false,Ayud2_Factura:r.Ayud2_Factura||false,
+  };
+  try{
+    await atPatch(r._id,fields);
+    if(msgEl){msgEl.className='reg-msg ok';msgEl.textContent='✓ Guardado en Airtable';}
+    setTimeout(()=>{if(msgEl)msgEl.textContent='';},3000);
+  }catch(e){
+    if(msgEl){msgEl.className='reg-msg err';msgEl.textContent='Error: '+e.message.substring(0,50);}
+  }
+  if(btn)btn.disabled=false;
+}
+
 async function loadReport(){
   msg('rep-msg','Cargando...','info');
   const mesFiltro=v('filtro-mes'),tipoFiltro=v('filtro-tipo');
@@ -461,19 +578,21 @@ async function loadReport(){
   if(tipoFiltro)records=records.filter(r=>r.Tipo===tipoFiltro);
   const particulares=records.filter(r=>r.Tipo==='Particular');
   let totalHon=0,totalPagos=0,conFact=0,sinFact=0;
-  const byMethod={Terminal:0,Transferencia:0,Efectivo:0};
+  const ingresos={Terminal:0,Transferencia:0,Efectivo:0};
+  const egresos={Terminal:0,Transferencia:0,Efectivo:0};
   const docs={};const pendientes=[];
   particulares.forEach(r=>{
     const hon=parseFloat(r.Monto_Cirujano)||0;
     totalHon+=hon;
     if(r.Factura_Paciente)conFact+=hon;else sinFact+=hon;
-    if(byMethod[r.Pago_Cirujano]!==undefined)byMethod[r.Pago_Cirujano]+=hon;
+    const metIn=r.Pago_Cirujano;
+    if(ingresos[metIn]!==undefined)ingresos[metIn]+=parseFloat(r.Pago_Total)||0;
     [{nom:r.Anest_Nombre,monto:parseFloat(r.Anest_Monto)||0,pago:r.Anest_Pago,pagado:r.Anest_Pagado,factura:r.Anest_Factura,rol:'Anestesiólogo'},
      {nom:r.Ayud1_Nombre,monto:parseFloat(r.Ayud1_Monto)||0,pago:r.Ayud1_Pago,pagado:r.Ayud1_Pagado,factura:r.Ayud1_Factura,rol:'Ayudante 1'},
      {nom:r.Ayud2_Nombre,monto:parseFloat(r.Ayud2_Monto)||0,pago:r.Ayud2_Pago,pagado:r.Ayud2_Pagado,factura:r.Ayud2_Factura,rol:'Ayudante 2'}]
     .filter(m=>m.nom).forEach(m=>{
       totalPagos+=m.monto;
-      if(byMethod[m.pago]!==undefined)byMethod[m.pago]-=m.monto;
+      if(egresos[m.pago]!==undefined)egresos[m.pago]+=m.monto;
       if(!docs[m.nom])docs[m.nom]={nom:m.nom,rol:m.rol,total:0,pagado:m.pagado,factura:m.factura,pago:m.pago};
       docs[m.nom].total+=m.monto;
       if(!m.pagado)pendientes.push({...m,paciente:r.Paciente,fecha:r.Fecha});
@@ -491,9 +610,9 @@ async function loadReport(){
   });
   $('r-total').textContent=records.length;
   $('r-neto').textContent=fmt(totalHon-totalPagos);
-  $('pb-terminal').textContent=fmt(byMethod.Terminal);
-  $('pb-transferencia').textContent=fmt(byMethod.Transferencia);
-  $('pb-efectivo').textContent=fmt(byMethod.Efectivo);
+  $('pb-terminal').textContent=fmt(ingresos.Terminal)+' / -'+fmt(egresos.Terminal);
+  $('pb-transferencia').textContent=fmt(ingresos.Transferencia)+' / -'+fmt(egresos.Transferencia);
+  $('pb-efectivo').textContent=fmt(ingresos.Efectivo)+' / -'+fmt(egresos.Efectivo);
   $('r-con-factura').textContent=fmt(conFact);
   $('r-sin-factura').textContent=fmt(sinFact);
   const docList=Object.values(docs);
@@ -508,35 +627,6 @@ async function loadReport(){
       <div class="dr-r" style="font-size:15px;font-weight:700">${fmt(p.monto)}</div>
     </div>`).join(''):'<div class="empty" style="padding:16px">Sin pendientes ✓</div>';
   msg('rep-msg','','ok');
-}
-
-async function loadHistory(){
-  msg('hist-msg','Cargando...','info');
-  const mesFiltro=v('hist-filtro-mes'),tipoFiltro=v('hist-filtro-tipo');
-  let records=getLocalRecords();
-  if(atToken&&atBase){try{records=await atGet(mesFiltro);}catch(e){}}
-  if(mesFiltro)records=records.filter(r=>r.Fecha&&r.Fecha.startsWith(mesFiltro));
-  if(tipoFiltro)records=records.filter(r=>r.Tipo===tipoFiltro);
-  const el=$('hist-list');
-  if(!records.length){el.innerHTML='<div class="empty">Sin registros</div>';msg('hist-msg','','ok');return;}
-  el.innerHTML=[...records].reverse().slice(0,60).map(r=>`
-    <div class="rec">
-      <div class="rec-top">
-        <div><div class="rec-name">${r.Paciente||'—'}</div><div class="rec-date">${r.Fecha||'—'}${r.Tipo_Cirugia?' · '+r.Tipo_Cirugia:''}</div></div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
-          <span class="rec-type ${r.Tipo==='Aseguradora'?'rt-aseguradora':'rt-particular'}">${r.Tipo||'—'}</span>
-          ${r.Tipo==='Particular'?`<span style="font-size:13px;font-weight:700;color:#065f46">${fmt(r.Monto_Cirujano)}</span>`:''}
-        </div>
-      </div>
-      <div class="tags">
-        ${r.Anest_Nombre?`<span class="tag tag-anest">💉 ${r.Anest_Nombre} ${r.Anest_Pagado?'✓':''}</span>`:''}
-        ${r.Ayud1_Nombre?`<span class="tag tag-ayud">👤 ${r.Ayud1_Nombre} ${r.Ayud1_Pagado?'✓':''}</span>`:''}
-        ${r.Ayud2_Nombre?`<span class="tag tag-ayud">👤 ${r.Ayud2_Nombre} ${r.Ayud2_Pagado?'✓':''}</span>`:''}
-        ${r.Factura_Paciente?`<span class="tag" style="background:#F0FDF4;color:#166534;border:1px solid #86EFAC">🧾 Facturado</span>`:''}
-        ${r.Cobrado?`<span class="tag" style="background:#EFF6FF;color:#1e40af;border:1px solid #BFDBFE">✓ Cobrado</span>`:''}
-      </div>
-    </div>`).join('');
-  msg('hist-msg','','ok');
 }
 
 window.onload=()=>{
