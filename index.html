@@ -1,239 +1,191 @@
-
+      <!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Pagos Quirúrgicos · Dra. Mariel Pacheco</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font-sans,system-ui);background:#f0f4f8;color:var(--color-text-primary);min-height:100vh}
-.header{background:linear-gradient(135deg,#0F6E56 0%,#1D9E75 100%);padding:16px 20px;display:flex;align-items:center;gap:12px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f4f8;color:#1e293b;min-height:100vh;padding-bottom:40px}
+.header{background:linear-gradient(135deg,#0F6E56 0%,#1D9E75 100%);padding:16px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
 .h-icon{width:38px;height:38px;background:rgba(255,255,255,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
-.h-title{font-size:15px;font-weight:500;color:#fff}
+.h-title{font-size:15px;font-weight:700;color:#fff}
 .h-sub{font-size:12px;color:rgba(255,255,255,0.75)}
-.conn-dot{width:7px;height:7px;border-radius:50%;background:#86efac;display:inline-block;margin-right:5px}
-.conn-dot.off{background:rgba(255,255,255,0.4)}
-
-.tabs{display:flex;background:#fff;border-bottom:1px solid #e2e8f0;padding:0 16px;overflow-x:auto}
-.tab{padding:10px 14px;font-size:13px;cursor:pointer;border-bottom:2px solid transparent;color:#64748b;white-space:nowrap;transition:all .15s}
-.tab.active{color:#0F6E56;border-bottom-color:#0F6E56;font-weight:500}
-
-.content{padding:18px;max-width:820px;margin:0 auto}
-
-/* Cards con color */
-.card{background:#fff;border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
-.card-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
-
-/* Card de cirugía — azul */
-.card-cirugia{background:linear-gradient(135deg,#EBF4FF 0%,#DBEAFE 100%);border:1px solid #BFDBFE}
+.conn-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:5px;background:#86efac}
+.conn-dot.off{background:rgba(255,255,255,0.35)}
+.tabs{display:flex;background:#fff;border-bottom:1px solid #e2e8f0;overflow-x:auto;position:sticky;top:70px;z-index:99}
+.tab{padding:11px 14px;font-size:13px;cursor:pointer;border-bottom:2px solid transparent;color:#64748b;white-space:nowrap;transition:all .15s;flex-shrink:0}
+.tab.active{color:#0F6E56;border-bottom-color:#0F6E56;font-weight:600}
+.content{padding:16px;max-width:780px;margin:0 auto}
+.type-selector{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.type-btn{padding:12px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;cursor:pointer;text-align:center;transition:all .2s;font-size:13px;font-weight:600;color:#64748b}
+.type-btn.active-particular{border-color:#1D9E75;background:linear-gradient(135deg,#D1FAE5,#A7F3D0);color:#065f46}
+.type-btn.active-aseguradora{border-color:#3b82f6;background:linear-gradient(135deg,#EBF4FF,#DBEAFE);color:#1e40af}
+.type-icon{font-size:20px;margin-bottom:4px}
+.card{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.card-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.card-cirugia{background:linear-gradient(135deg,#EBF4FF,#DBEAFE);border:1px solid #BFDBFE}
 .card-cirugia .card-title{color:#1e40af}
-
-/* Card de anestesia — morado */
-.card-anest{background:linear-gradient(135deg,#F5F3FF 0%,#EDE9FE 100%);border:1px solid #DDD6FE}
+.card-anest{background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border:1px solid #DDD6FE}
 .card-anest .card-title{color:#5b21b6}
-
-/* Card de ayudantes — naranja */
-.card-ayud{background:linear-gradient(135deg,#FFF7ED 0%,#FFEDD5 100%);border:1px solid #FED7AA}
+.card-ayud{background:linear-gradient(135deg,#FFF7ED,#FFEDD5);border:1px solid #FED7AA}
 .card-ayud .card-title{color:#9a3412}
-
-/* Card de config — gris */
-.card-config{background:#fff;border:1px solid #e2e8f0}
-.card-config .card-title{color:#475569}
-
 .row{display:grid;gap:10px;margin-bottom:10px}
 .row2{grid-template-columns:1fr 1fr}
 .row3{grid-template-columns:1fr 1fr 1fr}
-@media(max-width:560px){.row2,.row3{grid-template-columns:1fr}}
-
+@media(max-width:520px){.row2,.row3{grid-template-columns:1fr}}
 .fg{display:flex;flex-direction:column;gap:4px}
 .fg label{font-size:12px;color:#64748b;font-weight:500}
-.fg input,.fg select{padding:8px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;background:#fff;color:#1e293b;outline:none;transition:border .15s,box-shadow .15s}
-.fg input:focus,.fg select:focus{border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,.12)}
-
-/* Secciones internas médicos */
-.sec-anest{background:rgba(255,255,255,0.65);border:1px solid #DDD6FE;border-radius:10px;padding:14px;margin-bottom:10px}
-.sec-ayud{background:rgba(255,255,255,0.65);border:1px solid #FED7AA;border-radius:10px;padding:14px;margin-bottom:10px}
+.fg input,.fg select{padding:9px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;background:#fff;color:#1e293b;outline:none;-webkit-appearance:none;transition:border .15s}
+.fg input:focus,.fg select:focus{border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,.1)}
+.sec{border-radius:10px;padding:14px;margin-bottom:10px}
+.sec-anest{background:rgba(255,255,255,0.7);border:1px solid #DDD6FE}
+.sec-ayud{background:rgba(255,255,255,0.7);border:1px solid #FED7AA}
 .sec-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.sec-title{font-size:13px;font-weight:600;color:#374151}
-
-.badge{font-size:11px;padding:3px 9px;border-radius:99px;font-weight:500}
+.sec-title{font-size:13px;font-weight:700;color:#374151}
+.checks-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,0,0,0.06)}
+.check-item{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:#475569}
+.check-item input[type=checkbox]{width:16px;height:16px;accent-color:#1D9E75;cursor:pointer}
+.badge{font-size:11px;padding:3px 9px;border-radius:99px;font-weight:600}
 .b-pending{background:#FEF3C7;color:#92400e;border:1px solid #FDE68A}
 .b-paid{background:#D1FAE5;color:#065f46;border:1px solid #6EE7B7}
-
-.toggle-row{display:flex;align-items:center;gap:8px;margin-top:10px}
-.tg{position:relative;width:38px;height:20px;cursor:pointer}
-.tg input{opacity:0;width:0;height:0}
-.sl{position:absolute;top:0;left:0;right:0;bottom:0;background:#cbd5e1;border-radius:99px;transition:.2s}
-.sl:before{content:"";position:absolute;height:14px;width:14px;left:3px;bottom:3px;background:white;border-radius:50%;transition:.2s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
-.tg input:checked+.sl{background:#10b981}
-.tg input:checked+.sl:before{transform:translateX(18px)}
-
-.btn-add-anest{width:100%;font-size:13px;color:#5b21b6;background:rgba(255,255,255,0.7);border:1px dashed #a78bfa;border-radius:8px;padding:8px;cursor:pointer;margin-bottom:10px;transition:background .15s}
-.btn-add-anest:hover{background:#ede9fe}
-.btn-add-ayud{width:100%;font-size:13px;color:#9a3412;background:rgba(255,255,255,0.7);border:1px dashed #fb923c;border-radius:8px;padding:8px;cursor:pointer;margin-bottom:10px;transition:background .15s}
+.btn-add-ayud{width:100%;font-size:13px;color:#9a3412;background:rgba(255,255,255,0.7);border:1px dashed #fb923c;border-radius:8px;padding:9px;cursor:pointer;margin-bottom:10px;transition:background .15s}
 .btn-add-ayud:hover{background:#ffedd5}
-.btn-rm{font-size:12px;color:#ef4444;background:none;border:none;cursor:pointer;padding:2px 6px}
-
-.btn-main{background:linear-gradient(135deg,#0F6E56,#1D9E75);color:#fff;border:none;border-radius:10px;padding:12px 24px;font-size:14px;font-weight:500;cursor:pointer;width:100%;transition:opacity .15s;box-shadow:0 2px 6px rgba(15,110,86,.3)}
+.btn-rm{font-size:16px;color:#ef4444;background:none;border:none;cursor:pointer;padding:2px 8px}
+.btn-main{background:linear-gradient(135deg,#0F6E56,#1D9E75);color:#fff;border:none;border-radius:12px;padding:14px 24px;font-size:15px;font-weight:700;cursor:pointer;width:100%;transition:opacity .15s;box-shadow:0 2px 8px rgba(15,110,86,.3);margin-top:4px}
 .btn-main:hover{opacity:.9}
 .btn-main:disabled{opacity:.4;cursor:not-allowed}
 .btn-sec{background:#fff;color:#374151;border:1px solid #e2e8f0;border-radius:10px;padding:11px 24px;font-size:13px;cursor:pointer;width:100%;transition:background .15s}
 .btn-sec:hover{background:#f8fafc}
-
 .msg{font-size:13px;padding:10px 14px;border-radius:8px;margin-top:10px;text-align:center}
 .msg.ok{background:#D1FAE5;color:#065f46}
 .msg.err{background:#FEE2E2;color:#991b1b}
 .msg.info{background:#DBEAFE;color:#1e40af}
-
-/* Métricas con color */
-.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
-@media(max-width:460px){.metrics{grid-template-columns:1fr 1fr}}
+.filter-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.filter-row select{padding:8px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;background:#fff;color:#1e293b;outline:none;flex:1;min-width:120px}
+.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
 .mc{border-radius:12px;padding:14px;border:1px solid transparent}
-.mc-0{background:linear-gradient(135deg,#EBF4FF,#DBEAFE);border-color:#BFDBFE}
-.mc-1{background:linear-gradient(135deg,#D1FAE5,#A7F3D0);border-color:#6EE7B7}
-.mc-2{background:linear-gradient(135deg,#FEE2E2,#FECACA);border-color:#FCA5A5}
-.mc-label{font-size:11px;font-weight:600;margin-bottom:4px}
-.mc-0 .mc-label{color:#1e40af}
-.mc-1 .mc-label{color:#065f46}
-.mc-2 .mc-label{color:#991b1b}
-.mc-val{font-size:22px;font-weight:600}
-.mc-0 .mc-val{color:#1e40af}
-.mc-1 .mc-val{color:#065f46}
-.mc-2 .mc-val{color:#991b1b}
-
-.dr{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid #f1f5f9;gap:8px}
+.mc-blue{background:linear-gradient(135deg,#EBF4FF,#DBEAFE);border-color:#BFDBFE}
+.mc-green{background:linear-gradient(135deg,#D1FAE5,#A7F3D0);border-color:#6EE7B7}
+.mc-purple{background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border-color:#DDD6FE}
+.mc-gray{background:linear-gradient(135deg,#F8FAFC,#F1F5F9);border-color:#E2E8F0}
+.mc-label{font-size:11px;font-weight:700;margin-bottom:4px}
+.mc-blue .mc-label{color:#1e40af}
+.mc-green .mc-label{color:#065f46}
+.mc-purple .mc-label{color:#5b21b6}
+.mc-gray .mc-label{color:#475569}
+.mc-val{font-size:20px;font-weight:700}
+.mc-blue .mc-val{color:#1e40af}
+.mc-green .mc-val{color:#065f46}
+.mc-purple .mc-val{color:#5b21b6}
+.mc-gray .mc-val{color:#475569}
+.section-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#64748b;margin:16px 0 10px}
+.pago-breakdown{background:#fff;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:14px}
+.pb-row{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:1px solid #f1f5f9;font-size:13px}
+.pb-row:last-child{border-bottom:none}
+.pb-label{color:#64748b}
+.pb-val{font-weight:700;color:#1e293b}
+.dr{display:flex;justify-content:space-between;align-items:flex-start;padding:12px 0;border-bottom:1px solid #f1f5f9;gap:8px}
 .dr:last-child{border-bottom:none}
-.dr-name{font-size:14px;font-weight:600;color:#1e293b}
+.dr-name{font-size:14px;font-weight:700;color:#1e293b}
 .dr-role{font-size:11px;color:#64748b}
-.dr-g{font-size:13px;color:#059669;font-weight:500}
+.dr-info{font-size:11px;color:#94a3b8}
+.dr-g{font-size:13px;color:#059669;font-weight:600}
 .dr-r{font-size:13px;color:#ef4444;font-weight:500}
-
 .rec{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:8px}
-.rec-name{font-size:14px;font-weight:600;color:#1e293b}
+.rec-top{display:flex;justify-content:space-between;align-items:flex-start}
+.rec-name{font-size:14px;font-weight:700;color:#1e293b}
 .rec-date{font-size:12px;color:#64748b}
-.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.tag-anest{font-size:11px;padding:3px 9px;border-radius:99px;background:#EDE9FE;color:#5b21b6;border:1px solid #DDD6FE}
-.tag-ayud{font-size:11px;padding:3px 9px;border-radius:99px;background:#FFEDD5;color:#9a3412;border:1px solid #FED7AA}
+.rec-type{font-size:11px;padding:2px 8px;border-radius:99px;font-weight:600}
+.rt-particular{background:#D1FAE5;color:#065f46}
+.rt-aseguradora{background:#DBEAFE;color:#1e40af}
+.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.tag{font-size:11px;padding:3px 8px;border-radius:99px}
+.tag-anest{background:#EDE9FE;color:#5b21b6;border:1px solid #DDD6FE}
+.tag-ayud{background:#FFEDD5;color:#9a3412;border:1px solid #FED7AA}
 .empty{text-align:center;padding:32px;color:#94a3b8;font-size:13px}
-
-/* Config */
-.step{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
-.step-n{min-width:26px;height:26px;background:#0F6E56;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;margin-top:1px}
-.step-body{flex:1;font-size:13px;color:#475569;line-height:1.6}
-.step-body strong{color:#1e293b}
-.code-block{background:#1e293b;border-radius:10px;padding:14px;font-family:var(--font-mono);font-size:11px;line-height:1.5;margin:8px 0;white-space:pre-wrap;word-break:break-all;color:#94a3b8;max-height:160px;overflow-y:auto}
-.copy-btn{font-size:12px;color:#0F6E56;background:#D1FAE5;border:1px solid #6EE7B7;border-radius:8px;padding:5px 12px;cursor:pointer;font-weight:500}
-.url-input{width:100%;padding:9px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;background:#fff;color:#1e293b;outline:none;margin-top:8px}
-.url-input:focus{border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,.12)}
-
-.warn-banner{background:#FEF3C7;border:1px solid #FDE68A;border-radius:10px;padding:12px 16px;margin-bottom:12px;font-size:13px;color:#92400e}
+.url-input{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;background:#fff;color:#1e293b;outline:none;margin-top:8px}
+.url-input:focus{border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,.1)}
 </style>
+</head>
+<body>
 
 <div class="header">
   <div class="h-icon">🏥</div>
   <div>
-    <div class="h-title">Control de pagos quirúrgicos</div>
-    <div class="h-sub" id="conn-status"><span class="conn-dot off"></span>Sin conectar a Google Sheets</div>
+    <div class="h-title">Pagos Quirúrgicos</div>
+    <div class="h-sub" id="conn-status"><span class="conn-dot off"></span>Sin conectar</div>
   </div>
 </div>
 
 <div class="tabs">
-  <div class="tab active" data-tab="registro" onclick="switchTab(this)">Nuevo registro</div>
-  <div class="tab" data-tab="reporte" onclick="switchTab(this)">Reporte</div>
-  <div class="tab" data-tab="historial" onclick="switchTab(this)">Historial</div>
-  <div class="tab" data-tab="config" onclick="switchTab(this)">⚙ Configuración</div>
+  <div class="tab active" data-tab="registro" onclick="switchTab(this)">➕ Registro</div>
+  <div class="tab" data-tab="reporte" onclick="switchTab(this)">📊 Reporte</div>
+  <div class="tab" data-tab="historial" onclick="switchTab(this)">📋 Historial</div>
+  <div class="tab" data-tab="config" onclick="switchTab(this)">⚙️ Config</div>
 </div>
 
 <div class="content">
 
-<!-- CONFIG -->
-<div id="pane-config" style="display:none">
-  <div class="card card-config">
-    <div class="card-title">Paso 1 — Crea el script en Google Sheets</div>
-    <div class="step"><div class="step-n">1</div><div class="step-body">Abre tu Google Sheet → <strong>Extensiones → Apps Script</strong></div></div>
-    <div class="step"><div class="step-n">2</div><div class="step-body">Borra todo el código y pega este:</div></div>
-    <div class="code-block" id="script-code">const SHEET_NAME = "Pagos_Cirugia";
-
-function doPost(e) {
-  try {
-    const data = JSON.parse(e.postData.contents);
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    let sheet = ss.getSheetByName(SHEET_NAME);
-    if (!sheet) {
-      sheet = ss.insertSheet(SHEET_NAME);
-      sheet.appendRow(["Fecha","Paciente","Monto_Cirujano","Pago_Cirujano",
-        "Anest_Nombre","Anest_Monto","Anest_Pago","Anest_Status",
-        "Ayud1_Nombre","Ayud1_Monto","Ayud1_Pago","Ayud1_Status",
-        "Ayud2_Nombre","Ayud2_Monto","Ayud2_Pago","Ayud2_Status"]);
-    }
-    sheet.appendRow(data.row);
-    return ContentService.createTextOutput(JSON.stringify({ok:true}))
-      .setMimeType(ContentService.MimeType.JSON);
-  } catch(err) {
-    return ContentService.createTextOutput(JSON.stringify({ok:false,error:err.message}))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-function doGet(e) {
-  try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    const sheet = ss.getSheetByName(SHEET_NAME);
-    if (!sheet) return ContentService.createTextOutput(JSON.stringify({ok:true,rows:[]})).setMimeType(ContentService.MimeType.JSON);
-    const rows = sheet.getDataRange().getValues();
-    return ContentService.createTextOutput(JSON.stringify({ok:true,rows:rows}))
-      .setMimeType(ContentService.MimeType.JSON);
-  } catch(err) {
-    return ContentService.createTextOutput(JSON.stringify({ok:false,error:err.message}))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}</div>
-    <button class="copy-btn" onclick="copyScript()">Copiar código</button>
-  </div>
-
-  <div class="card card-config">
-    <div class="card-title">Paso 2 — Publica como web app</div>
-    <div class="step"><div class="step-n">1</div><div class="step-body"><strong>Implementar → Nueva implementación</strong></div></div>
-    <div class="step"><div class="step-n">2</div><div class="step-body">Tipo: <strong>Aplicación web</strong></div></div>
-    <div class="step"><div class="step-n">3</div><div class="step-body">Ejecutar como: <strong>Yo</strong> · Acceso: <strong>Cualquier usuario</strong></div></div>
-    <div class="step"><div class="step-n">4</div><div class="step-body">Clic en <strong>Implementar</strong> → autoriza → copia la URL</div></div>
-  </div>
-
-  <div class="card card-config">
-    <div class="card-title">Paso 3 — Pega la URL aquí</div>
-    <input class="url-input" id="url-input" type="url" placeholder="https://script.google.com/macros/s/AKfy.../exec" />
-    <button class="btn-main" style="margin-top:10px" onclick="saveUrl()">Conectar</button>
-    <div id="config-msg"></div>
-  </div>
-</div>
-
-<!-- REGISTRO -->
 <div id="pane-registro">
-  <div class="warn-banner" id="warn-no-config" style="display:none">⚠ Configura tu Google Sheet primero — pestaña ⚙ Configuración</div>
+  <div class="type-selector">
+    <div class="type-btn active-particular" id="btn-particular" onclick="setTipo('particular')">
+      <div class="type-icon">👤</div><div>Particular</div>
+    </div>
+    <div class="type-btn" id="btn-aseguradora" onclick="setTipo('aseguradora')">
+      <div class="type-icon">🏢</div><div>Aseguradora</div>
+    </div>
+  </div>
 
   <div class="card card-cirugia">
     <div class="card-title">🔵 Datos de la cirugía</div>
     <div class="row row2">
-      <div class="fg"><label>Paciente</label><input id="f-pac" type="text" placeholder="Apellido Nombre" /></div>
-      <div class="fg"><label>Fecha</label><input id="f-fecha" type="date" /></div>
+      <div class="fg"><label>Paciente</label><input id="f-pac" type="text" placeholder="Apellido Nombre"/></div>
+      <div class="fg"><label>Fecha de cirugía</label><input id="f-fecha" type="date"/></div>
     </div>
     <div class="row row2">
-      <div class="fg"><label>Honorarios cirujano ($)</label><input id="f-monto" type="number" placeholder="0.00" /></div>
-      <div class="fg"><label>Forma de pago</label>
-        <select id="f-pago"><option value="">Seleccionar...</option><option>Terminal</option><option>Transferencia</option><option>Efectivo</option></select>
+      <div class="fg"><label>Tipo de cirugía</label><input id="f-tipo" type="text" placeholder="Ej: Tiroidectomía"/></div>
+      <div class="fg"><label>Hospital</label><input id="f-hospital" type="text" placeholder="Ej: Ángeles Valle Oriente"/></div>
+    </div>
+    <div id="bloque-honorarios">
+      <div class="row row2">
+        <div class="fg"><label>Pago total de la cirugía ($)</label><input id="f-total" type="number" placeholder="0.00" oninput="calcHonorarios()"/></div>
+        <div class="fg"><label>Forma de pago</label>
+          <select id="f-pago"><option value="">Seleccionar...</option><option>Terminal</option><option>Transferencia</option><option>Efectivo</option></select>
+        </div>
+      </div>
+      <div class="fg" style="margin-bottom:10px">
+        <label>Mis honorarios (calculado automáticamente)</label>
+        <div id="f-honorarios-display" style="padding:9px 10px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;font-size:15px;font-weight:700;color:#065f46">$0.00</div>
+        <input type="hidden" id="f-monto"/>
+      </div>
+      <div class="checks-row">
+        <label class="check-item"><input type="checkbox" id="f-factura"> Se facturó al paciente</label>
+        <label class="check-item"><input type="checkbox" id="f-cobrado"> Ya cobré mis honorarios</label>
       </div>
     </div>
   </div>
 
-  <div class="card card-anest">
+  <div class="card card-anest" id="bloque-anest">
     <div class="card-title">🟣 Anestesiólogo</div>
-    <div class="sec-anest">
-      <div class="sec-hd"><span class="sec-title">Anestesiólogo</span><span class="badge b-pending" id="anest-badge">Pendiente</span></div>
-      <div class="row row3">
-        <div class="fg"><label>Nombre</label><input id="a-nom" type="text" placeholder="Dr. Apellido" /></div>
-        <div class="fg"><label>Monto ($)</label><input id="a-monto" type="number" placeholder="0.00" /></div>
+    <div class="sec sec-anest">
+      <div class="sec-hd">
+        <span class="sec-title">Anestesiólogo</span>
+        <span class="badge b-pending" id="anest-badge">Pendiente pago</span>
+      </div>
+      <div class="row row2">
+        <div class="fg"><label>Nombre</label><input id="a-nom" type="text" placeholder="Dr. Apellido"/></div>
+        <div class="fg"><label>Monto ($)</label><input id="a-monto" type="number" placeholder="0.00" oninput="calcHonorarios()"/></div>
+      </div>
+      <div class="row row2">
         <div class="fg"><label>Forma de pago</label>
           <select id="a-pago"><option value="">Seleccionar...</option><option>Terminal</option><option>Transferencia</option><option>Efectivo</option></select>
         </div>
+        <div class="fg"><label>Fecha de pago</label><input id="a-fecha-pago" type="date"/></div>
       </div>
-      <div class="toggle-row">
-        <label class="tg"><input type="checkbox" id="a-paid" onchange="toggleBadge('anest-badge',this)"><span class="sl"></span></label>
-        <span style="font-size:13px;color:#64748b">Pago realizado</span>
+      <div class="checks-row">
+        <label class="check-item"><input type="checkbox" id="a-pagado" onchange="updateBadge('anest-badge','a-pagado','Pendiente pago','Pagado ✓')"> Ya le pagué</label>
+        <label class="check-item"><input type="checkbox" id="a-factura"> Me hizo factura</label>
       </div>
     </div>
   </div>
@@ -244,198 +196,358 @@ function doGet(e) {
     <button class="btn-add-ayud" id="btn-add-ayud" onclick="addAyudante()">+ Agregar ayudante</button>
   </div>
 
-  <button class="btn-main" id="btn-save" onclick="guardar()">Guardar en Google Sheets</button>
+  <button class="btn-main" id="btn-save" onclick="guardar()">💾 Guardar registro</button>
   <div id="save-msg"></div>
 </div>
 
-<!-- REPORTE -->
 <div id="pane-reporte" style="display:none">
+  <div class="filter-row">
+    <select id="filtro-mes" onchange="loadReport()"><option value="">Todos los meses</option></select>
+    <select id="filtro-tipo" onchange="loadReport()">
+      <option value="">Particular + Aseguradora</option>
+      <option value="Particular">Solo Particular</option>
+      <option value="Aseguradora">Solo Aseguradora</option>
+    </select>
+  </div>
+  <div class="section-title">💰 Lo que me quedo</div>
   <div class="metrics">
-    <div class="mc mc-0"><div class="mc-label">Cirugías</div><div class="mc-val" id="r-total">0</div></div>
-    <div class="mc mc-1"><div class="mc-label">Total pagado</div><div class="mc-val" id="r-pagado">$0</div></div>
-    <div class="mc mc-2"><div class="mc-label">Pendiente</div><div class="mc-val" id="r-pend">$0</div></div>
+    <div class="mc mc-green"><div class="mc-label">Mis honorarios netos</div><div class="mc-val" id="r-neto">$0</div></div>
+    <div class="mc mc-blue"><div class="mc-label">Cirugías registradas</div><div class="mc-val" id="r-total">0</div></div>
   </div>
-  <div class="card card-config">
-    <div class="card-title">Por médico</div>
-    <div id="rep-docs"><div class="empty">Presiona actualizar para cargar datos</div></div>
+  <div class="section-title">💳 Desglose por método de pago</div>
+  <div class="pago-breakdown">
+    <div class="pb-row"><span class="pb-label">💳 Terminal</span><span class="pb-val" id="pb-terminal">$0</span></div>
+    <div class="pb-row"><span class="pb-label">🏦 Transferencia</span><span class="pb-val" id="pb-transferencia">$0</span></div>
+    <div class="pb-row"><span class="pb-label">💵 Efectivo</span><span class="pb-val" id="pb-efectivo">$0</span></div>
   </div>
-  <button class="btn-sec" onclick="loadReport()">↻ Actualizar desde Google Sheets</button>
+  <div class="section-title">🧾 Facturación al paciente</div>
+  <div class="metrics">
+    <div class="mc mc-purple"><div class="mc-label">Con factura</div><div class="mc-val" id="r-con-factura">$0</div></div>
+    <div class="mc mc-gray"><div class="mc-label">Sin factura</div><div class="mc-val" id="r-sin-factura">$0</div></div>
+  </div>
+  <div class="section-title">👨‍⚕️ Resumen por médico</div>
+  <div class="card" style="padding:0 16px"><div id="rep-docs"><div class="empty">Presiona actualizar</div></div></div>
+  <div class="section-title">⏳ Pendientes de pago</div>
+  <div class="card" style="padding:0 16px"><div id="rep-pendientes"><div class="empty">Sin pendientes ✓</div></div></div>
+  <button class="btn-sec" style="margin-top:8px" onclick="loadReport()">↻ Actualizar reporte</button>
   <div id="rep-msg"></div>
 </div>
 
-<!-- HISTORIAL -->
 <div id="pane-historial" style="display:none">
-  <div class="card card-config">
-    <div class="card-title">Últimos registros</div>
-    <div id="hist-list"><div class="empty">Presiona cargar para ver el historial</div></div>
+  <div class="filter-row">
+    <select id="hist-filtro-mes" onchange="loadHistory()"><option value="">Todos los meses</option></select>
+    <select id="hist-filtro-tipo" onchange="loadHistory()">
+      <option value="">Todo</option>
+      <option value="Particular">Particular</option>
+      <option value="Aseguradora">Aseguradora</option>
+    </select>
   </div>
-  <button class="btn-sec" onclick="loadHistory()">↻ Cargar desde Google Sheets</button>
+  <div id="hist-list"><div class="empty">Presiona cargar</div></div>
+  <button class="btn-sec" style="margin-top:8px" onclick="loadHistory()">↻ Cargar historial</button>
   <div id="hist-msg"></div>
+</div>
+
+<div id="pane-config" style="display:none">
+  <div class="card" style="border:1px solid #e2e8f0">
+    <div class="card-title" style="color:#475569">⚙️ Conexión Airtable</div>
+    <div class="fg" style="margin-bottom:10px"><label>API Token</label><input class="url-input" id="at-token" type="text" placeholder="patXXXXXXXXX"/></div>
+    <div class="fg" style="margin-bottom:10px"><label>Base ID</label><input class="url-input" id="at-base" type="text" placeholder="appXXXXXXXXX"/></div>
+    <div class="fg" style="margin-bottom:10px"><label>Tabla</label><input class="url-input" id="at-table" type="text" placeholder="Pagos_Cirugia"/></div>
+    <button class="btn-main" onclick="saveConfig()">Guardar</button>
+    <div id="config-msg"></div>
+  </div>
 </div>
 
 </div>
 
 <script>
-let ayudCount=0;
+let tipo='particular', ayudCount=0;
 const MAX_AYUD=2;
-let scriptUrl=localStorage.getItem('gasUrl')||'';
+let atToken=localStorage.getItem('atToken')||'';
+let atBase=localStorage.getItem('atBase')||'';
+let atTable=localStorage.getItem('atTable')||'Pagos_Cirugia';
 
-function v(id){return(document.getElementById(id)||{}).value||''}
-function chk(id){return(document.getElementById(id)||{}).checked||false}
-function msg(id,text,type){const el=document.getElementById(id);if(!el)return;el.className='msg '+type;el.textContent=text;if(type==='ok')setTimeout(()=>{el.textContent='';el.className=''},4000)}
+const $=id=>document.getElementById(id);
+const v=id=>($( id)||{}).value||'';
+const ch=id=>($( id)||{}).checked||false;
+
+function msg(id,text,type){const el=$(id);if(!el)return;el.className='msg '+type;el.textContent=text;if(type==='ok')setTimeout(()=>{el.textContent='';el.className='';},4000);}
+function fmt(n){return '$'+(parseFloat(n)||0).toLocaleString('es-MX',{minimumFractionDigits:0,maximumFractionDigits:0});}
 
 function switchTab(el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('[id^="pane-"]').forEach(p=>p.style.display='none');
   el.classList.add('active');
-  document.getElementById('pane-'+el.dataset.tab).style.display='block';
+  $('pane-'+el.dataset.tab).style.display='block';
+  if(el.dataset.tab==='reporte'){populateMeses();loadReport();}
+  if(el.dataset.tab==='historial'){populateMeses();loadHistory();}
 }
 
-function toggleBadge(badgeId,chkEl){
-  const b=document.getElementById(badgeId);if(!b)return;
-  b.className='badge '+(chkEl.checked?'b-paid':'b-pending');
-  b.textContent=chkEl.checked?'Pagado':'Pendiente';
+function setTipo(t){
+  tipo=t;
+  $('btn-particular').className='type-btn'+(t==='particular'?' active-particular':'');
+  $('btn-aseguradora').className='type-btn'+(t==='aseguradora'?' active-aseguradora':'');
+  $('bloque-honorarios').style.display=t==='particular'?'block':'none';
+  $('bloque-anest').style.display=t==='particular'?'block':'none';
+}
+
+function updateBadge(bid,cid,off,on){
+  const b=$(bid);if(!b)return;
+  b.className='badge '+(ch(cid)?'b-paid':'b-pending');
+  b.textContent=ch(cid)?on:off;
+}
+
+function calcHonorarios(){
+  const total=parseFloat(v('f-total'))||0;
+  const anest=parseFloat(v('a-monto'))||0;
+  let ayudSum=0;
+  for(let i=0;i<MAX_AYUD;i++) ayudSum+=parseFloat(v('ay'+i+'-monto'))||0;
+  const hon=total-anest-ayudSum;
+  $('f-honorarios-display').textContent='$'+hon.toLocaleString('es-MX',{minimumFractionDigits:2,maximumFractionDigits:2});
+  $('f-honorarios-display').style.color=hon>=0?'#065f46':'#991b1b';
+  $('f-monto').value=hon;
 }
 
 function addAyudante(){
   if(ayudCount>=MAX_AYUD)return;
   const i=ayudCount;
-  const wrap=document.getElementById('ayudantes-wrap');
   const div=document.createElement('div');
-  div.className='sec-ayud';div.id='ayud-sec-'+i;
+  div.className='sec sec-ayud';div.id='ayud-sec-'+i;
   div.innerHTML=`
     <div class="sec-hd">
       <span class="sec-title">Ayudante ${i+1}</span>
       <div style="display:flex;gap:8px;align-items:center">
-        <span class="badge b-pending" id="ayud-badge-${i}">Pendiente</span>
+        <span class="badge b-pending" id="ayud-badge-${i}">Pendiente pago</span>
         <button class="btn-rm" onclick="removeAyudante(${i})">✕</button>
       </div>
     </div>
-    <div class="row row3">
+    <div class="row row2">
       <div class="fg"><label>Nombre</label><input id="ay${i}-nom" type="text" placeholder="Dr. Apellido"/></div>
-      <div class="fg"><label>Monto ($)</label><input id="ay${i}-monto" type="number" placeholder="0.00"/></div>
-      <div class="fg"><label>Forma de pago</label><select id="ay${i}-pago"><option value="">Seleccionar...</option><option>Terminal</option><option>Transferencia</option><option>Efectivo</option></select></div>
+      <div class="fg"><label>Monto ($)</label><input id="ay${i}-monto" type="number" placeholder="0.00" oninput="calcHonorarios()"/></div>
     </div>
-    <div class="toggle-row">
-      <label class="tg"><input type="checkbox" id="ay${i}-paid" onchange="toggleBadge('ayud-badge-${i}',this)"><span class="sl"></span></label>
-      <span style="font-size:13px;color:#64748b">Pago realizado</span>
+    <div class="row row2">
+      <div class="fg"><label>Forma de pago</label>
+        <select id="ay${i}-pago"><option value="">Seleccionar...</option><option>Terminal</option><option>Transferencia</option><option>Efectivo</option></select>
+      </div>
+      <div class="fg"><label>Fecha de pago</label><input id="ay${i}-fecha-pago" type="date"/></div>
+    </div>
+    <div class="checks-row">
+      <label class="check-item"><input type="checkbox" id="ay${i}-pagado" onchange="updateBadge('ayud-badge-${i}','ay${i}-pagado','Pendiente pago','Pagado ✓')"> Ya le pagué</label>
+      <label class="check-item"><input type="checkbox" id="ay${i}-factura"> Me hizo factura</label>
     </div>`;
-  wrap.appendChild(div);
+  $('ayudantes-wrap').appendChild(div);
   ayudCount++;
-  if(ayudCount>=MAX_AYUD)document.getElementById('btn-add-ayud').style.display='none';
+  if(ayudCount>=MAX_AYUD)$('btn-add-ayud').style.display='none';
 }
 
 function removeAyudante(i){
-  const el=document.getElementById('ayud-sec-'+i);if(el)el.remove();
+  const el=$('ayud-sec-'+i);if(el)el.remove();
   ayudCount--;
-  document.getElementById('btn-add-ayud').style.display='block';
+  $('btn-add-ayud').style.display='block';
 }
 
-function copyScript(){
-  const code=document.getElementById('script-code').textContent;
-  navigator.clipboard.writeText(code).then(()=>{
-    const btn=event.target;btn.textContent='¡Copiado!';
-    setTimeout(()=>btn.textContent='Copiar código',2000);
-  });
-}
-
-async function saveUrl(){
-  const url=document.getElementById('url-input').value.trim();
-  if(!url.includes('script.google.com')){msg('config-msg','Pega una URL válida de Google Apps Script','err');return;}
-  localStorage.setItem('gasUrl',url);scriptUrl=url;
-  msg('config-msg','Probando conexión...','info');
-  try{
-    await fetch(scriptUrl,{method:'GET'});
-    updateConnStatus(true);msg('config-msg','✓ Conectado correctamente a Google Sheets','ok');
-  }catch(e){
-    updateConnStatus(true);msg('config-msg','✓ URL guardada. Lista para usar.','ok');
-  }
+function saveConfig(){
+  const tok=$('at-token').value.trim();
+  const base=$('at-base').value.trim();
+  const table=$('at-table').value.trim()||'Pagos_Cirugia';
+  if(!tok||!base){msg('config-msg','Completa token y Base ID','err');return;}
+  localStorage.setItem('atToken',tok);localStorage.setItem('atBase',base);localStorage.setItem('atTable',table);
+  atToken=tok;atBase=base;atTable=table;
+  updateConnStatus(true);msg('config-msg','✓ Guardado','ok');
 }
 
 function updateConnStatus(on){
-  document.getElementById('conn-status').innerHTML=`<span class="conn-dot ${on?'':'off'}"></span>${on?'Conectado a Google Sheets':'Sin conectar a Google Sheets'}`;
+  $('conn-status').innerHTML=`<span class="conn-dot ${on?'':'off'}"></span>${on?'Conectado a Airtable':'Sin conectar'}`;
+}
+
+async function atPost(fields){
+  const res=await fetch(`https://api.airtable.com/v0/${atBase}/${encodeURIComponent(atTable)}`,{
+    method:'POST',headers:{'Authorization':'Bearer '+atToken,'Content-Type':'application/json'},
+    body:JSON.stringify({fields})
+  });
+  if(!res.ok)throw new Error(await res.text());
+  return res.json();
+}
+
+async function atGet(filterMes){
+  let url=`https://api.airtable.com/v0/${atBase}/${encodeURIComponent(atTable)}?pageSize=100`;
+  if(filterMes)url+=`&filterByFormula=LEFT({Fecha},7)="${filterMes}"`;
+  const all=[];let offset='';
+  do{
+    const r=await fetch(url+(offset?'&offset='+offset:''),{headers:{'Authorization':'Bearer '+atToken}});
+    const d=await r.json();
+    if(d.records)all.push(...d.records.map(r=>r.fields));
+    offset=d.offset||'';
+  }while(offset);
+  return all;
+}
+
+function getLocalRecords(){return JSON.parse(localStorage.getItem('records')||'[]');}
+
+function populateMeses(){
+  const records=getLocalRecords();
+  const meses=new Set();
+  records.forEach(r=>{if(r.Fecha)meses.add(r.Fecha.substring(0,7));});
+  const sorted=[...meses].sort().reverse();
+  ['filtro-mes','hist-filtro-mes'].forEach(id=>{
+    const sel=$(id);if(!sel)return;
+    const cur=sel.value;
+    sel.innerHTML='<option value="">Todos los meses</option>';
+    sorted.forEach(m=>{
+      const [y,mo]=m.split('-');
+      const label=new Date(y,mo-1).toLocaleString('es-MX',{month:'long',year:'numeric'});
+      sel.innerHTML+=`<option value="${m}" ${m===cur?'selected':''}>${label.charAt(0).toUpperCase()+label.slice(1)}</option>`;
+    });
+  });
 }
 
 async function guardar(){
-  if(!scriptUrl){document.getElementById('warn-no-config').style.display='block';return;}
   const pac=v('f-pac'),fecha=v('f-fecha');
   if(!pac||!fecha){msg('save-msg','Paciente y fecha son obligatorios','err');return;}
-  const row=[fecha,pac,v('f-monto'),v('f-pago'),v('a-nom'),v('a-monto'),v('a-pago'),chk('a-paid')?'Pagado':'Pendiente',
-    v('ay0-nom'),v('ay0-monto'),v('ay0-pago'),chk('ay0-paid')?'Pagado':'Pendiente',
-    v('ay1-nom'),v('ay1-monto'),v('ay1-pago'),chk('ay1-paid')?'Pagado':'Pendiente'];
-  const local=JSON.parse(localStorage.getItem('records')||'[]');
-  local.push(row);localStorage.setItem('records',JSON.stringify(local));
-  document.getElementById('btn-save').disabled=true;
-  msg('save-msg','Enviando a Google Sheets...','info');
-  try{await fetch(scriptUrl,{method:'POST',body:JSON.stringify({row}),mode:'no-cors'});}catch(e){}
-  msg('save-msg','✓ Guardado correctamente','ok');
-  document.getElementById('btn-save').disabled=false;
+  const fields={
+    Fecha:fecha, Paciente:pac, Tipo:tipo==='particular'?'Particular':'Aseguradora',
+    Tipo_Cirugia:v('f-tipo'), Hospital:v('f-hospital'),
+    Pago_Total:tipo==='particular'?parseFloat(v('f-total'))||0:0,
+    Monto_Cirujano:tipo==='particular'?parseFloat(v('f-monto'))||0:0,
+    Pago_Cirujano:tipo==='particular'?v('f-pago'):'',
+    Factura_Paciente:tipo==='particular'?ch('f-factura'):false,
+    Cobrado:tipo==='particular'?ch('f-cobrado'):false,
+    Anest_Nombre:tipo==='particular'?v('a-nom'):'',
+    Anest_Monto:tipo==='particular'?parseFloat(v('a-monto'))||0:0,
+    Anest_Pago:tipo==='particular'?v('a-pago'):'',
+    Anest_Fecha_Pago:tipo==='particular'?v('a-fecha-pago'):'',
+    Anest_Pagado:tipo==='particular'?ch('a-pagado'):false,
+    Anest_Factura:tipo==='particular'?ch('a-factura'):false,
+    Ayud1_Nombre:v('ay0-nom'), Ayud1_Monto:parseFloat(v('ay0-monto'))||0,
+    Ayud1_Pago:v('ay0-pago'), Ayud1_Fecha_Pago:v('ay0-fecha-pago'),
+    Ayud1_Pagado:ch('ay0-pagado'), Ayud1_Factura:ch('ay0-factura'),
+    Ayud2_Nombre:v('ay1-nom'), Ayud2_Monto:parseFloat(v('ay1-monto'))||0,
+    Ayud2_Pago:v('ay1-pago'), Ayud2_Fecha_Pago:v('ay1-fecha-pago'),
+    Ayud2_Pagado:ch('ay1-pagado'), Ayud2_Factura:ch('ay1-factura'),
+  };
+  const local=getLocalRecords();local.push(fields);
+  localStorage.setItem('records',JSON.stringify(local));
+  populateMeses();
+  $('btn-save').disabled=true;
+  msg('save-msg','Guardando...','info');
+  if(atToken&&atBase){
+    try{await atPost(fields);msg('save-msg','✓ Guardado en Airtable','ok');}
+    catch(e){msg('save-msg','Error: '+e.message.substring(0,80),'err');}
+  }else{
+    msg('save-msg','✓ Guardado localmente','ok');
+  }
+  $('btn-save').disabled=false;
   resetForm();
 }
 
 function resetForm(){
-  ['f-pac','f-monto','f-pago','a-nom','a-monto','a-pago'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  document.getElementById('a-paid').checked=false;
-  toggleBadge('anest-badge',document.getElementById('a-paid'));
-  document.getElementById('ayudantes-wrap').innerHTML='';
-  ayudCount=0;document.getElementById('btn-add-ayud').style.display='block';
-  document.getElementById('f-fecha').valueAsDate=new Date();
+  ['f-pac','f-total','f-monto','f-pago','f-tipo','f-hospital','a-nom','a-monto','a-pago','a-fecha-pago'].forEach(id=>{const el=$(id);if(el)el.value='';});
+  ['f-factura','f-cobrado','a-pagado','a-factura'].forEach(id=>{const el=$(id);if(el)el.checked=false;});
+  $('f-honorarios-display').textContent='$0.00';
+  $('f-honorarios-display').style.color='#065f46';
+  updateBadge('anest-badge','a-pagado','Pendiente pago','Pagado ✓');
+  $('ayudantes-wrap').innerHTML='';
+  ayudCount=0;$('btn-add-ayud').style.display='block';
+  $('f-fecha').valueAsDate=new Date();
+  setTipo('particular');
 }
 
 async function loadReport(){
   msg('rep-msg','Cargando...','info');
-  let rows=JSON.parse(localStorage.getItem('records')||'[]');
-  if(scriptUrl){try{const res=await fetch(scriptUrl+'?get=1');const data=await res.json();if(data.ok&&data.rows&&data.rows.length>1)rows=data.rows.slice(1);}catch(e){}}
-  document.getElementById('r-total').textContent=rows.length;
-  const docs={};let pagado=0,pend=0;
-  rows.forEach(r=>{
-    [[r[4],r[5],r[7],'Anestesiólogo'],[r[8],r[9],r[11],'Ayudante 1'],[r[12],r[13],r[15],'Ayudante 2']]
-    .forEach(([nom,monto,status,rol])=>{
-      if(!nom)return;const m=parseFloat(monto)||0;
-      if(!docs[nom])docs[nom]={nom,rol,pagado:0,pend:0};
-      if(status==='Pagado'){docs[nom].pagado+=m;pagado+=m;}else{docs[nom].pend+=m;pend+=m;}
+  const mesFiltro=v('filtro-mes'),tipoFiltro=v('filtro-tipo');
+  let records=getLocalRecords();
+  if(atToken&&atBase){try{records=await atGet(mesFiltro);}catch(e){}}
+  if(mesFiltro)records=records.filter(r=>r.Fecha&&r.Fecha.startsWith(mesFiltro));
+  if(tipoFiltro)records=records.filter(r=>r.Tipo===tipoFiltro);
+  const particulares=records.filter(r=>r.Tipo==='Particular');
+  let totalHon=0,totalPagos=0,conFact=0,sinFact=0;
+  const byMethod={Terminal:0,Transferencia:0,Efectivo:0};
+  const docs={};const pendientes=[];
+  particulares.forEach(r=>{
+    const hon=parseFloat(r.Monto_Cirujano)||0;
+    totalHon+=hon;
+    if(r.Factura_Paciente)conFact+=hon;else sinFact+=hon;
+    if(byMethod[r.Pago_Cirujano]!==undefined)byMethod[r.Pago_Cirujano]+=hon;
+    [{nom:r.Anest_Nombre,monto:parseFloat(r.Anest_Monto)||0,pago:r.Anest_Pago,pagado:r.Anest_Pagado,factura:r.Anest_Factura,rol:'Anestesiólogo'},
+     {nom:r.Ayud1_Nombre,monto:parseFloat(r.Ayud1_Monto)||0,pago:r.Ayud1_Pago,pagado:r.Ayud1_Pagado,factura:r.Ayud1_Factura,rol:'Ayudante 1'},
+     {nom:r.Ayud2_Nombre,monto:parseFloat(r.Ayud2_Monto)||0,pago:r.Ayud2_Pago,pagado:r.Ayud2_Pagado,factura:r.Ayud2_Factura,rol:'Ayudante 2'}]
+    .filter(m=>m.nom).forEach(m=>{
+      totalPagos+=m.monto;
+      if(byMethod[m.pago]!==undefined)byMethod[m.pago]-=m.monto;
+      if(!docs[m.nom])docs[m.nom]={nom:m.nom,rol:m.rol,total:0,pagado:m.pagado,factura:m.factura,pago:m.pago};
+      docs[m.nom].total+=m.monto;
+      if(!m.pagado)pendientes.push({...m,paciente:r.Paciente,fecha:r.Fecha});
     });
   });
-  document.getElementById('r-pagado').textContent='$'+pagado.toLocaleString('es-MX',{minimumFractionDigits:0});
-  document.getElementById('r-pend').textContent='$'+pend.toLocaleString('es-MX',{minimumFractionDigits:0});
-  const list=Object.values(docs);
-  const el=document.getElementById('rep-docs');
-  if(!list.length){el.innerHTML='<div class="empty">Sin datos aún</div>';msg('rep-msg','','ok');return;}
-  el.innerHTML=list.map(d=>`
+  records.filter(r=>r.Tipo==='Aseguradora').forEach(r=>{
+    [{nom:r.Ayud1_Nombre,monto:parseFloat(r.Ayud1_Monto)||0,pago:r.Ayud1_Pago,pagado:r.Ayud1_Pagado,factura:r.Ayud1_Factura,rol:'Ayudante 1'},
+     {nom:r.Ayud2_Nombre,monto:parseFloat(r.Ayud2_Monto)||0,pago:r.Ayud2_Pago,pagado:r.Ayud2_Pagado,factura:r.Ayud2_Factura,rol:'Ayudante 2'}]
+    .filter(m=>m.nom).forEach(m=>{
+      totalPagos+=m.monto;
+      if(!docs[m.nom])docs[m.nom]={nom:m.nom,rol:m.rol,total:0,pagado:m.pagado,factura:m.factura,pago:m.pago};
+      docs[m.nom].total+=m.monto;
+      if(!m.pagado)pendientes.push({...m,paciente:r.Paciente,fecha:r.Fecha});
+    });
+  });
+  $('r-total').textContent=records.length;
+  $('r-neto').textContent=fmt(totalHon-totalPagos);
+  $('pb-terminal').textContent=fmt(byMethod.Terminal);
+  $('pb-transferencia').textContent=fmt(byMethod.Transferencia);
+  $('pb-efectivo').textContent=fmt(byMethod.Efectivo);
+  $('r-con-factura').textContent=fmt(conFact);
+  $('r-sin-factura').textContent=fmt(sinFact);
+  const docList=Object.values(docs);
+  $('rep-docs').innerHTML=docList.length?docList.map(d=>`
     <div class="dr">
-      <div><div class="dr-name">${d.nom}</div><div class="dr-role">${d.rol}</div></div>
-      <div style="text-align:right">
-        <div class="dr-g">✓ $${d.pagado.toLocaleString('es-MX',{minimumFractionDigits:0})}</div>
-        ${d.pend>0?`<div class="dr-r">⧖ $${d.pend.toLocaleString('es-MX',{minimumFractionDigits:0})}</div>`:''}
-      </div>
-    </div>`).join('');
+      <div><div class="dr-name">${d.nom}</div><div class="dr-role">${d.rol}</div><div class="dr-info">${d.pago||'—'} · ${d.factura?'✓ Me facturó':'Sin factura'}</div></div>
+      <div style="text-align:right"><div style="font-size:15px;font-weight:700">${fmt(d.total)}</div><div class="${d.pagado?'dr-g':'dr-r'}">${d.pagado?'Pagado ✓':'Pendiente ⧖'}</div></div>
+    </div>`).join(''):'<div class="empty">Sin datos</div>';
+  $('rep-pendientes').innerHTML=pendientes.length?pendientes.map(p=>`
+    <div class="dr">
+      <div><div class="dr-name">${p.nom}</div><div class="dr-role">${p.rol} · ${p.paciente||''} · ${p.fecha||''}</div></div>
+      <div class="dr-r" style="font-size:15px;font-weight:700">${fmt(p.monto)}</div>
+    </div>`).join(''):'<div class="empty" style="padding:16px">Sin pendientes ✓</div>';
   msg('rep-msg','','ok');
 }
 
 async function loadHistory(){
   msg('hist-msg','Cargando...','info');
-  let rows=JSON.parse(localStorage.getItem('records')||'[]');
-  if(scriptUrl){try{const res=await fetch(scriptUrl+'?get=1');const data=await res.json();if(data.ok&&data.rows&&data.rows.length>1)rows=data.rows.slice(1);}catch(e){}}
-  const el=document.getElementById('hist-list');
-  if(!rows.length){el.innerHTML='<div class="empty">Sin registros</div>';msg('hist-msg','','ok');return;}
-  el.innerHTML=[...rows].reverse().slice(0,30).map(r=>`
+  const mesFiltro=v('hist-filtro-mes'),tipoFiltro=v('hist-filtro-tipo');
+  let records=getLocalRecords();
+  if(atToken&&atBase){try{records=await atGet(mesFiltro);}catch(e){}}
+  if(mesFiltro)records=records.filter(r=>r.Fecha&&r.Fecha.startsWith(mesFiltro));
+  if(tipoFiltro)records=records.filter(r=>r.Tipo===tipoFiltro);
+  const el=$('hist-list');
+  if(!records.length){el.innerHTML='<div class="empty">Sin registros</div>';msg('hist-msg','','ok');return;}
+  el.innerHTML=[...records].reverse().slice(0,60).map(r=>`
     <div class="rec">
-      <div style="display:flex;justify-content:space-between">
-        <div><div class="rec-name">${r[1]||'—'}</div><div class="rec-date">${r[0]||'—'}</div></div>
-        <div style="text-align:right;font-size:13px"><div style="color:#64748b">${r[3]||''}</div><div style="font-weight:600;color:#1e293b">$${parseFloat(r[2]||0).toLocaleString('es-MX',{minimumFractionDigits:0})}</div></div>
+      <div class="rec-top">
+        <div><div class="rec-name">${r.Paciente||'—'}</div><div class="rec-date">${r.Fecha||'—'}${r.Tipo_Cirugia?' · '+r.Tipo_Cirugia:''}</div></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+          <span class="rec-type ${r.Tipo==='Aseguradora'?'rt-aseguradora':'rt-particular'}">${r.Tipo||'—'}</span>
+          ${r.Tipo==='Particular'?`<span style="font-size:13px;font-weight:700;color:#065f46">${fmt(r.Monto_Cirujano)}</span>`:''}
+        </div>
       </div>
       <div class="tags">
-        ${r[4]?`<span class="tag-anest">💉 ${r[4]} · ${r[7]}</span>`:''}
-        ${r[8]?`<span class="tag-ayud">👤 ${r[8]} · ${r[11]}</span>`:''}
-        ${r[12]?`<span class="tag-ayud">👤 ${r[12]} · ${r[15]}</span>`:''}
+        ${r.Anest_Nombre?`<span class="tag tag-anest">💉 ${r.Anest_Nombre} ${r.Anest_Pagado?'✓':''}</span>`:''}
+        ${r.Ayud1_Nombre?`<span class="tag tag-ayud">👤 ${r.Ayud1_Nombre} ${r.Ayud1_Pagado?'✓':''}</span>`:''}
+        ${r.Ayud2_Nombre?`<span class="tag tag-ayud">👤 ${r.Ayud2_Nombre} ${r.Ayud2_Pagado?'✓':''}</span>`:''}
+        ${r.Factura_Paciente?`<span class="tag" style="background:#F0FDF4;color:#166534;border:1px solid #86EFAC">🧾 Facturado</span>`:''}
+        ${r.Cobrado?`<span class="tag" style="background:#EFF6FF;color:#1e40af;border:1px solid #BFDBFE">✓ Cobrado</span>`:''}
       </div>
     </div>`).join('');
   msg('hist-msg','','ok');
 }
 
 window.onload=()=>{
-  document.getElementById('f-fecha').valueAsDate=new Date();
-  if(scriptUrl){document.getElementById('url-input').value=scriptUrl;updateConnStatus(true);}
-  else document.getElementById('warn-no-config').style.display='block';
+  $('f-fecha').valueAsDate=new Date();
+  $('at-token').value=atToken;
+  $('at-base').value=atBase;
+  $('at-table').value=atTable;
+  updateConnStatus(atToken&&atBase);
+  setTipo('particular');
+  populateMeses();
 };
 </script>
+</body>
+</html>
